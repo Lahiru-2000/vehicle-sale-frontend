@@ -1,0 +1,347 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 94.1%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    transition: color-scheme 0.3s ease;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Smooth transitions for theme switching */
+  * {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 h-10 py-2 px-4;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 h-10 py-2 px-4;
+  }
+
+  .btn-destructive {
+    @apply bg-destructive text-destructive-foreground hover:bg-destructive/90 h-10 py-2 px-4;
+  }
+
+  .btn-outline {
+    @apply border border-input hover:bg-accent hover:text-accent-foreground h-10 py-2 px-4;
+  }
+
+  .btn-ghost {
+    @apply hover:bg-accent hover:text-accent-foreground h-10 py-2 px-4;
+  }
+
+  .btn-sm {
+    @apply h-8 px-3 text-xs;
+  }
+
+  .btn-lg {
+    @apply h-12 px-8 text-base;
+  }
+
+  .input {
+    @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .card {
+    @apply rounded-lg border bg-card text-card-foreground shadow-sm;
+  }
+
+  .badge {
+    @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+  }
+
+  .badge-primary {
+    @apply border-transparent bg-primary text-primary-foreground hover:bg-primary/80;
+  }
+
+  .badge-secondary {
+    @apply border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80;
+  }
+
+  .badge-sm {
+    @apply px-2 py-0.5 text-xs;
+  }
+
+  /* Filter panel animations */
+  .filter-panel {
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  .filter-panel-enter {
+    @apply opacity-0 transform -translate-y-2;
+  }
+
+  .filter-panel-enter-active {
+    @apply opacity-100 transform translate-y-0;
+  }
+
+  .filter-panel-exit {
+    @apply opacity-100 transform translate-y-0;
+  }
+
+  .filter-panel-exit-active {
+    @apply opacity-0 transform -translate-y-2;
+  }
+
+  /* Search input focus effects */
+  .search-input:focus-within {
+    @apply ring-2 ring-primary ring-offset-2;
+  }
+
+  /* Filter toggle button states */
+  .filter-toggle {
+    @apply transition-all duration-200;
+  }
+
+  .filter-toggle.active {
+    @apply bg-primary text-primary-foreground;
+  }
+
+  /* Price range slider styling */
+  .price-range {
+    @apply appearance-none bg-transparent cursor-pointer;
+  }
+
+  .price-range::-webkit-slider-track {
+    @apply bg-muted rounded-full h-2;
+  }
+
+  .price-range::-webkit-slider-thumb {
+    @apply appearance-none bg-primary rounded-full h-4 w-4 cursor-pointer;
+  }
+
+  .price-range::-moz-range-track {
+    @apply bg-muted rounded-full h-2;
+  }
+
+  .price-range::-moz-range-thumb {
+    @apply bg-primary rounded-full h-4 w-4 cursor-pointer border-0;
+  }
+
+  /* Vehicle grid animations */
+  .vehicle-grid {
+    @apply transition-all duration-300;
+  }
+
+  .vehicle-card {
+    @apply transition-all duration-200 hover:shadow-lg hover:-translate-y-1;
+  }
+
+  /* Loading spinner */
+  .loading-spinner {
+    @apply animate-spin rounded-full border-2 border-muted border-t-primary;
+  }
+
+  /* Filter chip styling */
+  .filter-chip {
+    @apply inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary border border-primary/20;
+  }
+
+  .filter-chip-remove {
+    @apply hover:bg-primary/20 rounded-full p-0.5 transition-colors;
+  }
+
+  /* Responsive grid adjustments */
+  @media (max-width: 640px) {
+    .vehicle-grid {
+      @apply grid-cols-1 gap-4;
+    }
+  }
+
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .vehicle-grid {
+      @apply grid-cols-2 gap-5;
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .vehicle-grid {
+      @apply grid-cols-3 gap-6;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .vehicle-grid {
+      @apply grid-cols-4 gap-6;
+    }
+  }
+
+  /* Filter form styling */
+  .filter-form {
+    @apply space-y-4;
+  }
+
+  .filter-group {
+    @apply space-y-2;
+  }
+
+  .filter-label {
+    @apply block text-sm font-medium text-foreground;
+  }
+
+  .filter-input {
+    @apply w-full px-3 py-2 border border-input rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+  }
+
+  .filter-select {
+    @apply w-full px-3 py-2 border border-input rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+  }
+
+  /* Clear filters button */
+  .clear-filters {
+    @apply text-sm text-destructive hover:text-destructive/80 transition-colors;
+  }
+
+  /* Results summary */
+  .results-summary {
+    @apply flex items-center justify-between py-4 border-b border-border;
+  }
+
+  .results-count {
+    @apply text-lg font-semibold text-foreground;
+  }
+
+  .results-filtered {
+    @apply text-sm text-muted-foreground;
+  }
+
+  /* Empty state */
+  .empty-state {
+    @apply text-center py-16;
+  }
+
+  .empty-state-icon {
+    @apply mx-auto h-16 w-16 text-muted-foreground mb-4;
+  }
+
+  .empty-state-title {
+    @apply text-xl font-semibold text-foreground mb-2;
+  }
+
+  .empty-state-description {
+    @apply text-muted-foreground mb-6;
+  }
+
+  /* Search suggestions */
+  .search-suggestions {
+    @apply absolute top-full left-0 right-0 bg-background border border-border rounded-md shadow-lg z-10 max-h-60 overflow-y-auto;
+  }
+
+  .suggestion-item {
+    @apply px-4 py-2 hover:bg-muted cursor-pointer transition-colors;
+  }
+
+  .suggestion-item.active {
+    @apply bg-primary/10 text-primary;
+  }
+
+  /* Filter badges */
+  .active-filters {
+    @apply flex flex-wrap gap-2 mb-4;
+  }
+
+  .filter-badge {
+    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm bg-primary/10 text-primary border border-primary/20;
+  }
+
+  .filter-badge-remove {
+    @apply hover:bg-primary/20 rounded-full p-0.5 transition-colors cursor-pointer;
+  }
+
+  /* Theme toggle button */
+  .theme-toggle {
+    @apply p-2 rounded-lg hover:bg-accent transition-all duration-200;
+  }
+
+  .theme-toggle:hover {
+    @apply scale-105;
+  }
+
+  .theme-toggle:active {
+    @apply scale-95;
+  }
+
+  /* Smooth theme transitions */
+  .theme-transition {
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  /* Dark mode specific styles */
+  .dark .theme-toggle {
+    @apply hover:bg-accent/80;
+  }
+
+  .dark .card {
+    @apply border-border/50;
+  }
+
+  .dark .input {
+    @apply border-border/50 bg-background/50;
+  }
+
+  .dark .btn-outline {
+    @apply border-border/50 hover:bg-accent/50;
+  }
+}
