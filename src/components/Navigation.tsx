@@ -49,7 +49,7 @@ export default function Navigation() {
       if (!token) return
 
       const { apiFetch } = await import('@/lib/api-client')
-      const response = await apiFetch('notifications?unreadOnly=true&limit=1', {
+      const response = await apiFetch('notifications', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -58,7 +58,30 @@ export default function Navigation() {
 
       if (response.ok) {
         const data = await response.json()
-        const newCount = data.pagination.total
+        
+        // Handle different response formats
+        let newCount = 0
+        
+        // Check if response has pagination (new format)
+        if (data.pagination && typeof data.pagination.total === 'number') {
+          newCount = data.pagination.total
+        } 
+        // Check if response has notifications array with unread count
+        else if (data.notifications && Array.isArray(data.notifications)) {
+          newCount = data.notifications.filter((n: any) => !n.isRead).length
+        }
+        // Check if response is a direct array (backend returns List<NotificationDto>)
+        else if (Array.isArray(data)) {
+          newCount = data.filter((n: any) => !n.isRead).length
+        }
+        // Fallback: if unreadOnly was requested and we have a count
+        else if (typeof data.total === 'number') {
+          newCount = data.total
+        }
+        // Last resort: if data has a count property
+        else if (typeof data.count === 'number') {
+          newCount = data.count
+        }
         
         // Check if there are new notifications
         if (newCount > previousUnreadCount && previousUnreadCount > 0) {
@@ -77,6 +100,7 @@ export default function Navigation() {
       }
     } catch (error) {
       console.error('Error fetching unread count:', error)
+      // Don't update count on error to avoid resetting to 0
     }
   }
 
